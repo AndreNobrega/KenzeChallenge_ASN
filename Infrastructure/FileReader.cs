@@ -15,7 +15,10 @@ namespace Infrastructure
             if (Path.GetExtension(sourceFilePath) != ".txt")
                 throw new Exception("File type not supported");
 
-            throw new NotImplementedException();
+            var reader = new StreamReader(sourceFilePath);
+            var content = reader.ReadToEnd();
+
+            return content.Split("\r\n").Where(x => !string.IsNullOrEmpty(x)).ToList();
         }
     }
 }
