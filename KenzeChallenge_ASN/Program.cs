@@ -1,10 +1,20 @@
-﻿internal class Program
+﻿using Application;
+using Infrastructure;
+
+internal class Program
 {
     private static void Main(string[] args)
     {
+#if DEBUG
+        args = new string[] { @"C:\Users\andre\Downloads\6LetterWordChallenge\input.txt", "6" };
+#endif
+
+        string sourceFile;
+        int wordSize = 0;
+
         try
         {
-            ParseArgs(args);
+            (sourceFile, wordSize) = ParseArgs(args);
         }
         catch (Exception e)
         {
@@ -13,10 +23,13 @@
             throw;
         }
 
-        Console.WriteLine("Hello, World!");
+
+        IChallengeService challengeService = new ChallengeService(new FileReader()); // absolutely not done, but there's no time to set up DI
+        challengeService.ExtractWordsFromFile(sourceFile, wordSize);
     }
 
-    private static void ParseArgs(string[] args)
+
+    private static (string, int) ParseArgs(string[] args)
     {
         if (args.Length != 2)
         {
@@ -31,5 +44,7 @@
         {
             throw new ArgumentException("Second argument was not a valid integer");
         }
+
+        return (sourceFilePath,  wordSize);
     }
 }
