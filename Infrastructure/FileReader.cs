@@ -18,7 +18,7 @@ namespace Infrastructure
             var reader = new StreamReader(sourceFilePath);
             var content = reader.ReadToEnd();
 
-            return content.Split("\r\n").Where(x => !string.IsNullOrEmpty(x)).ToList();
+            return content.Split("\r\n").Distinct().Where(x => !string.IsNullOrEmpty(x)).ToList();
         }
     }
 }
