@@ -34,7 +34,11 @@ internal class Program
         }
 
         var challengeService = host.Services.GetRequiredService<IChallengeService>();
-        challengeService.ExtractWordsFromFile(sourceFile, wordSize);
+        var combos = challengeService.ExtractWordsFromFile(sourceFile, wordSize).ToList();
+        foreach (var combo in combos)
+        {
+            Console.WriteLine(combo);
+        }
     }
 
 

@@ -2,6 +2,6 @@
 {
     public interface IChallengeService
     {
-        void ExtractWordsFromFile(string sourceFilePath, int wordSize);
+        IEnumerable<string> ExtractWordsFromFile(string sourceFilePath, int wordSize);
     }
 }
