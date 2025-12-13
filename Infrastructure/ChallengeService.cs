@@ -12,12 +12,14 @@ namespace Infrastructure
             fileReader = _fileReader;
         }
 
-        public void ExtractWordsFromFile(string sourceFilePath, int wordSize)
+        public IEnumerable<string> ExtractWordsFromFile(string sourceFilePath, int wordSize)
         {
             var fileContent = fileReader.ReadFile(sourceFilePath);
 
             var targetWords = fileContent.Where(x => x.Length == wordSize).Select(x => new TargetWord(x)).ToList();
             Console.WriteLine($"Found {targetWords.Count()} words that are {wordSize} characters long.");
+
+            List<string> results = new();
 
             foreach (var targetWord in targetWords)
             {
@@ -28,13 +30,10 @@ namespace Infrastructure
 
                 targetWord.AddSegments(wordFragments);
 
-                var combos = targetWord.GetAllCombinations();
-
-                foreach (var combo in combos)
-                {
-                    Console.WriteLine(combo);
-                }
+                results.AddRange(targetWord.GetAllCombinations());
             }
+
+            return results;
         }
     }
 }
