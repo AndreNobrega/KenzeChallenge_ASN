@@ -1,5 +1,7 @@
 ﻿using Application;
 using Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 internal class Program
 {
@@ -8,6 +10,14 @@ internal class Program
 #if DEBUG
         args = new string[] { @"C:\Users\andre\Downloads\6LetterWordChallenge\input.txt", "6" };
 #endif
+
+        var host = Host.CreateDefaultBuilder(args)
+            .ConfigureServices(services =>
+            {
+                services.AddTransient<IFileReader, FileReader>();
+                services.AddTransient<IChallengeService, ChallengeService>();
+            })
+            .Build();
 
         string sourceFile;
         int wordSize = 0;
@@ -23,8 +33,7 @@ internal class Program
             throw;
         }
 
-
-        IChallengeService challengeService = new ChallengeService(new FileReader()); // absolutely not done, but there's no time to set up DI
+        var challengeService = host.Services.GetRequiredService<IChallengeService>();
         challengeService.ExtractWordsFromFile(sourceFile, wordSize);
     }
 
