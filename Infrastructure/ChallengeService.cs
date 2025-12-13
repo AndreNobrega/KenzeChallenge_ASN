@@ -9,8 +9,7 @@ namespace Infrastructure
 
         public ChallengeService(IFileReader _fileReader)
         {
-            //fileReader = _fileReader;
-            fileReader = new FileReader(); // NOT GOOD! Proper DI would be preferable, if I had time
+            fileReader = _fileReader;
         }
 
         public void ExtractWordsFromFile(string sourceFilePath, int wordSize)
