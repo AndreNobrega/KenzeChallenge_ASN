@@ -1,7 +1,6 @@
-﻿namespace Application
+﻿namespace Application;
+
+public interface IFileReader
 {
-    public interface IFileReader
-    {
-        List<string> ReadFile(string sourceFilePath);
-    }
+    List<string> ReadFile(string sourceFilePath);
 }
