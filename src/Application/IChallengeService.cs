@@ -1,7 +1,6 @@
-﻿namespace Application
+﻿namespace Application;
+
+public interface IChallengeService
 {
-    public interface IChallengeService
-    {
-        IEnumerable<string> ExtractWordsFromFile(string sourceFilePath, int wordSize);
-    }
+    IEnumerable<string> ExtractWordsFromFile(string sourceFilePath, int wordSize);
 }
